@@ -9,16 +9,17 @@ else
   print("Unsupported system \"", system_name, "\" for sumneko")
 end
 
-local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
+local sumneko_root_path = vim.fn.stdpath("data") .. "/lspinstall/lua"
+local sumneko_binary = sumneko_root_path .. "/sumneko-lua-language-server"
+
 require 'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+        path = vim.split(package.path, ";"),
+      },
       diagnostics = {
         globals = { "vim" },
       },
@@ -29,8 +30,8 @@ require 'lspconfig'.sumneko_lua.setup {
       telemetry = {
         enable = false,
       },
-		},
-	},
+    },
+  },
 }
 
 

@@ -1,23 +1,3 @@
-require("lsp.bash")
-require("lsp.cmake")
-require("lsp.cpp")
-require("lsp.css")
-require("lsp.docker")
-require("lsp.fortran")
-require("lsp.go")
-require("lsp.graphviz")
-require("lsp.html")
-require("lsp.json")
-require("lsp.julia")
-require("lsp.latex")
-require("lsp.lua")
-require("lsp.python")
-require("lsp.r")
-require("lsp.rust")
-require("lsp.typescript")
-require("lsp.vim")
-require("lsp.yaml")
-
 require'compe'.setup {
   enabled = true;
   autocomplete = true;

@@ -52,6 +52,3 @@ require("packer").clean()
 
 vim.cmd("colorscheme nord")
 
-require("lsp")
-require("ranger")
-require("galaxyline")
