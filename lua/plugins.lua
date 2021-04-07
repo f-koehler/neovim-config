@@ -22,6 +22,7 @@ require('packer').startup(function(use)
  	use "tpope/vim-commentary"
  	use "tpope/vim-vinegar"
  	use "wbthomason/packer.nvim"
+  use "editorconfig/editorconfig-vim"
  	use {
  		"nvim-treesitter/nvim-treesitter",
  		run = ":TSUpdate"
