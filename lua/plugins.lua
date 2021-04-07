@@ -8,7 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute "packadd packer.nvim"
 end
  
-return require('packer').startup(function(use)
+require('packer').startup(function(use)
  	use "arcticicestudio/nord-vim"
  	-- use "glepnir/galaxyline.nvim"
  	use "romgrk/barbar.nvim"
@@ -44,3 +44,12 @@ return require('packer').startup(function(use)
  		run = "cd app && npm install"
  	}
 end)
+
+
+require("packer").install()
+
+vim.cmd("colorscheme nord")
+
+require("lsp")
+require("ranger")
+require("galaxyline")

@@ -24,4 +24,3 @@ vim.wo.signcolumn = "yes"
 vim.o.timeoutlen = 100
 vim.o.updatetime = 300
 vim.o.termguicolors = true
-vim.cmd("colorscheme nord")

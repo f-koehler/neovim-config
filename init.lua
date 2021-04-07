@@ -1,5 +1,3 @@
-require("plugins")
 require("settings")
-require("ranger")
-require("lsp")
-require("galaxyline")
+
+require("plugins")
