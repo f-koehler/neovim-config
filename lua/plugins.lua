@@ -13,13 +13,15 @@ require('packer').startup(function(use)
  	-- use "glepnir/galaxyline.nvim"
  	use "romgrk/barbar.nvim"
  	use "hrsh7th/nvim-compe"
+
+ 	use "neovim/nvim-lspconfig"
  	use "kabouzeid/nvim-lspinstall"
+ 	use "terrortylor/nvim-comment"
+
  	use "kevinhwang91/rnvimr"
  	use "kyazdani42/nvim-web-devicons"
- 	use "neovim/nvim-lspconfig"
  	use "ryanoasis/vim-devicons"
   use "sheerun/vim-polyglot"
- 	use "tpope/vim-commentary"
  	use "tpope/vim-vinegar"
  	use "wbthomason/packer.nvim"
   use "editorconfig/editorconfig-vim"
