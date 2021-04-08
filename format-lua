@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euf -o pipefail
+
+if [[ -n $(git status -s) ]]; then
+  >&2 echo "Error: repository is dirty, commit first"
+else
+  >&2 echo "repository is clean, formatting lua"
+  lua-format -v -i $(find -name "*.lua")
+fi
