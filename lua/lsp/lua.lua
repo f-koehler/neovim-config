@@ -25,9 +25,3 @@ require("lspconfig").sumneko_lua.setup {
     },
   },
 }
-
-
--- TODO: replace this with Lua api once https://github.com/neovim/neovim/pull/12378 is fixed
-vim.api.nvim_exec([[
-  autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-]], false)
