@@ -47,4 +47,3 @@ require("packer").install()
 require("packer").clean()
 
 vim.cmd("colorscheme nord")
-
