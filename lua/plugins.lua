@@ -28,6 +28,7 @@ require('packer').startup(function(use)
     use "editorconfig/editorconfig-vim"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "kyazdani42/nvim-tree.lua"
+    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
 
     -- git
     use "tpope/vim-fugitive"
