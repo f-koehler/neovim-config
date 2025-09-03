@@ -12,5 +12,6 @@ pkgs.mkShellNoCC {
   pre-commit
   selene
   luajitPackages.luacheck
+  nodejs
   ];
 }
