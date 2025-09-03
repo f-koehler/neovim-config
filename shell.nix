@@ -9,5 +9,8 @@ pkgs.mkShellNoCC {
   lua-language-server
   fd
   ripgrep
+  pre-commit
+  selene
+  luajitPackages.luacheck
   ];
 }
