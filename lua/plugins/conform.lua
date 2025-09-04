@@ -3,16 +3,17 @@ return {
     config = function()
         require("conform").setup({
             formatters_by_ft = {
+                cpp = { "clang-format" },
+                css = { "prettier" },
+                html = { "prettier" },
+                javascript = { "prettier" },
+                json = { "prettier" },
                 lua = { "stylua" },
                 python = { "ruff" },
-                javascript = { "prettier" },
-                typescript = { "prettier" },
-                json = { "prettier" },
-                html = { "prettier" },
-                css = { "prettier" },
                 scss = { "prettier" },
-                yaml = { "prettier" },
                 toml = { "taplo" },
+                typescript = { "prettier" },
+                yaml = { "prettier" },
             },
             format_on_save = {
                 lsp_fallback = true,
