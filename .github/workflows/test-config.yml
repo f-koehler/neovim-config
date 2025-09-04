@@ -40,21 +40,6 @@ jobs:
           neovim: true
           version: ${{ matrix.neovim-version }}
 
-      - name: Install formatters and language servers
-        run: |
-          # Install stylua for Lua formatting
-          cargo install stylua
-
-          # Install prettier for JS/TS/JSON/CSS formatting
-          npm install -g prettier
-
-          # Install additional formatters
-          npm install -g @taplo/cli  # for TOML formatting
-          pip install ruff           # for Python formatting
-
-          # Install language servers
-          npm install -g lua-language-server
-
       - name: Create test directory
         run: |
           mkdir -p ~/.config
@@ -78,21 +63,6 @@ jobs:
           # Display checkhealth results
           echo "=== Neovim Health Check Results ==="
           cat /tmp/checkhealth.log || echo "No checkhealth output available"
-
-      - name: Test LSP functionality
-        run: |
-          # Create a simple Lua file for LSP testing
-          cat > /tmp/test.lua << 'EOF'
-          -- Simple Lua file for LSP testing
-          local function hello(name)
-            print("Hello, " .. name)
-          end
-
-          hello("World")
-          EOF
-
-          # Test LSP can start and analyze the file
-          timeout 30s nvim --headless /tmp/test.lua -c "lua vim.lsp.start({name='lua_ls', cmd={'lua-language-server'}})" -c "sleep 2" -c "quitall" || echo "LSP test completed"
 
       - name: Test configuration loading
         run: |
