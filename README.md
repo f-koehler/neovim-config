@@ -14,6 +14,8 @@ A modern, feature-rich Neovim configuration built with [Lazy.nvim](https://githu
 - 🔧 LSP support with nvim-lspconfig
 - 🚨 Error diagnostics with Trouble.nvim
 - ⌨️ Key mapping discovery with Which-key
+- 🎨 Code formatting with Conform.nvim
+- 🔀 Git integration with Gitsigns.nvim
 
 ## System Dependencies
 
@@ -43,7 +45,7 @@ nix-shell
 
 The Nix shell includes:
 - `cargo` - Rust toolchain
-- `stylua` - Lua formatter
+- `stylua` - Lua formatter (used by Conform.nvim)
 - `lua-language-server` - Lua LSP
 - `fd` - File finder
 - `ripgrep` - Text search
@@ -83,11 +85,15 @@ The Nix shell includes:
 - **[catppuccin](https://github.com/catppuccin/nvim)** - Soothing pastel colorscheme
 - **[lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)** - Fast and configurable statusline
 - **[nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)** - File type icons
+- **[gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)** - Git integration with signs, hunks, and blame
 
 ### Completion & LSP
 - **[blink.cmp](https://github.com/saghen/blink.cmp)** - Fast completion engine written in Rust
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP configuration helpers
 - **[copilot.vim](https://github.com/github/copilot.vim)** - GitHub Copilot integration
+
+### Code Quality & Formatting
+- **[conform.nvim](https://github.com/stevearc/conform.nvim)** - Async code formatting with format-on-save
 
 ### Navigation & Search
 - **[telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)** - Fuzzy finder and picker
@@ -130,7 +136,9 @@ nvim/
 │   └── plugins/            # Plugin specifications & configurations
 │       ├── blink.lua       # Completion configuration
 │       ├── catppuccin.lua  # Theme configuration & setup
+│       ├── conform.lua     # Code formatting setup
 │       ├── copilot.lua     # GitHub Copilot setup
+│       ├── gitsigns.lua    # Git integration configuration
 │       ├── lspconfig.lua   # LSP server configuration
 │       ├── lualine.lua     # Statusline configuration & setup
 │       ├── telescope.lua   # Telescope configuration & setup
@@ -143,7 +151,17 @@ nvim/
 ## Language Support
 
 ### Currently Configured
-- **Lua** - Full LSP support with lua-language-server
+- **Lua** - Full LSP support with lua-language-server and stylua formatting
+
+### Formatting Support (via Conform.nvim)
+The configuration includes formatters for multiple languages:
+- **Lua** - stylua
+- **Python** - ruff
+- **JavaScript/TypeScript** - prettier
+- **JSON/HTML/CSS/SCSS/YAML** - prettier
+- **TOML** - taplo
+
+Note: You'll need to install the respective formatters for the languages you use.
 
 ### Adding New Languages
 1. Install the appropriate language server
