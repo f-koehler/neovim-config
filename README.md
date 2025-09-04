@@ -16,6 +16,9 @@ A modern, feature-rich Neovim configuration built with [Lazy.nvim](https://githu
 - ⌨️ Key mapping discovery with Which-key
 - 🎨 Code formatting with Conform.nvim
 - 🔀 Git integration with Gitsigns.nvim
+- 📝 TODO comment highlighting with Todo-comments
+- 🚀 Task runner with Overseer.nvim
+- 🌙 Enhanced Lua development with Lazydev.nvim
 
 ## System Dependencies
 
@@ -91,9 +94,11 @@ The Nix shell includes:
 - **[blink.cmp](https://github.com/saghen/blink.cmp)** - Fast completion engine written in Rust
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP configuration helpers
 - **[copilot.vim](https://github.com/github/copilot.vim)** - GitHub Copilot integration
+- **[lazydev.nvim](https://github.com/folke/lazydev.nvim)** - Enhanced Lua development with better LSP support
 
 ### Code Quality & Formatting
 - **[conform.nvim](https://github.com/stevearc/conform.nvim)** - Async code formatting with format-on-save
+- **[todo-comments.nvim](https://github.com/folke/todo-comments.nvim)** - Highlight and search TODO comments with custom icons
 
 ### Navigation & Search
 - **[telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)** - Fuzzy finder and picker
@@ -105,6 +110,7 @@ The Nix shell includes:
 ### Utilities
 - **[which-key.nvim](https://github.com/folke/which-key.nvim)** - Key binding hints and discovery
 - **[trouble.nvim](https://github.com/folke/trouble.nvim)** - Pretty diagnostics and quickfix list
+- **[overseer.nvim](https://github.com/stevearc/overseer.nvim)** - Task runner for build systems and scripts
 
 ## Key Mappings
 
@@ -139,9 +145,12 @@ nvim/
 │       ├── conform.lua     # Code formatting setup
 │       ├── copilot.lua     # GitHub Copilot setup
 │       ├── gitsigns.lua    # Git integration configuration
+│       ├── lazydev.lua     # Lua development enhancement
 │       ├── lspconfig.lua   # LSP server configuration
 │       ├── lualine.lua     # Statusline configuration & setup
+│       ├── overseer.lua    # Task runner configuration
 │       ├── telescope.lua   # Telescope configuration & setup
+│       ├── todo-comments.lua # TODO comment highlighting
 │       ├── treesitter.lua  # Syntax highlighting setup
 │       ├── trouble.lua     # Diagnostics configuration
 │       └── which-key.lua   # Key mapping helper
@@ -151,7 +160,7 @@ nvim/
 ## Language Support
 
 ### Currently Configured
-- **Lua** - Full LSP support with lua-language-server and stylua formatting
+- **Lua** - Full LSP support with lua-language-server, stylua formatting, and enhanced development features via lazydev.nvim
 
 ### Formatting Support (via Conform.nvim)
 The configuration includes formatters for multiple languages:
