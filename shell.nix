@@ -5,6 +5,7 @@ in
 
 pkgs.mkShellNoCC {
   packages = with pkgs; [
+  cargo
   stylua
   lua-language-server
   fd

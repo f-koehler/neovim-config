@@ -3,5 +3,3 @@ vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Lsp buf rename" 
 vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, { desc = "Lsp buf declaration" })
 vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Lsp buf definition" })
 vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Lsp buf references" })
-
-vim.lsp.enable("lua_ls")
