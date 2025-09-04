@@ -4,6 +4,7 @@ return {
     opts = {
         servers = {
             lua_ls = {},
+            clangd = {},
         },
     },
     config = function(_, opts)
