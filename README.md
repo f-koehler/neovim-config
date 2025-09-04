@@ -126,16 +126,14 @@ nvim/
 ├── lua/
 │   ├── config/             # Core configurations
 │   │   ├── lazy.lua        # Lazy.nvim setup
-│   │   ├── catppuccin.lua  # Theme configuration
-│   │   ├── lsp.lua         # LSP key mappings
-│   │   ├── lualine.lua     # Statusline configuration
-│   │   └── telescope.lua   # Telescope configuration
-│   └── plugins/            # Plugin specifications
+│   │   └── lsp.lua         # LSP key mappings
+│   └── plugins/            # Plugin specifications & configurations
 │       ├── blink.lua       # Completion configuration
+│       ├── catppuccin.lua  # Theme configuration & setup
 │       ├── copilot.lua     # GitHub Copilot setup
 │       ├── lspconfig.lua   # LSP server configuration
-│       ├── lualine.lua     # Statusline plugin spec
-│       ├── telescope.lua   # Telescope plugin spec
+│       ├── lualine.lua     # Statusline configuration & setup
+│       ├── telescope.lua   # Telescope configuration & setup
 │       ├── treesitter.lua  # Syntax highlighting setup
 │       ├── trouble.lua     # Diagnostics configuration
 │       └── which-key.lua   # Key mapping helper
