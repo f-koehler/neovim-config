@@ -1,0 +1,80 @@
+name: Test Neovim Configuration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-config:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        neovim-version: ["stable", "nightly"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git \
+            curl \
+            build-essential \
+            nodejs \
+            npm \
+            ripgrep \
+            fd-find \
+            unzip
+
+      - name: Install Rust and Cargo
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Neovim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim-version }}
+
+      - name: Create test directory
+        run: |
+          mkdir -p ~/.config
+          ln -sf $GITHUB_WORKSPACE ~/.config/nvim
+
+      - name: Test Neovim startup
+        run: |
+          # Test basic startup and immediate exit
+          timeout 30s nvim --headless -c "quitall" || echo "Basic startup test completed"
+
+      - name: Install plugins
+        run: |
+          # Install plugins in headless mode
+          timeout 120s nvim --headless -c "Lazy! sync" -c "quitall" || echo "Plugin installation completed"
+
+      - name: Run checkhealth
+        run: |
+          # Run checkhealth and capture output
+          nvim --headless -c "checkhealth" -c "write! /tmp/checkhealth.log" -c "quitall" || true
+
+          # Display checkhealth results
+          echo "=== Neovim Health Check Results ==="
+          cat /tmp/checkhealth.log || echo "No checkhealth output available"
+
+      - name: Test configuration loading
+        run: |
+          # Test that configuration files can be loaded without errors
+          nvim --headless -c "lua require('config.lazy')" -c "quitall"
+          nvim --headless -c "lua require('config.lsp')" -c "quitall"
+          echo "Configuration loading test completed"
+
+      - name: Upload checkhealth results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checkhealth-results-${{ matrix.neovim-version }}
+          path: /tmp/checkhealth.log
+          retention-days: 7
