@@ -3,6 +3,7 @@ return {
     dependencies = { "saghen/blink.cmp" },
     opts = {
         servers = {
+            ansiblels = {},
             lua_ls = {},
             clangd = {},
         },
