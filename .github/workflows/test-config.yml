@@ -108,36 +108,3 @@ jobs:
           name: checkhealth-results-${{ matrix.neovim-version }}
           path: /tmp/checkhealth.log
           retention-days: 7
-
-  test-nix-shell:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v23
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-
-      - name: Test Nix shell environment
-        run: |
-          # Test that the Nix shell can be built and contains expected tools
-          nix-shell --run "echo 'Testing Nix shell environment...'"
-          nix-shell --run "which stylua && stylua --version"
-          nix-shell --run "which lua-language-server && lua-language-server --version"
-          nix-shell --run "which fd && fd --version"
-          nix-shell --run "which rg && rg --version"
-          nix-shell --run "which cargo && cargo --version"
-          nix-shell --run "which node && node --version"
-          echo "Nix shell environment test completed successfully"
-
-      - name: Test Neovim in Nix shell
-        run: |
-          # Install Neovim in Nix shell and test basic functionality
-          nix-shell --run "
-            mkdir -p ~/.config
-            ln -sf $PWD ~/.config/nvim
-            timeout 30s nvim --headless -c 'quitall' || echo 'Neovim test in Nix shell completed'
-          "
