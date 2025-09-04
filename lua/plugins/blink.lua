@@ -1,6 +1,6 @@
 return {
   'saghen/blink.cmp',
-  build = 'cargo build --release',
+  build = 'nix run .#build-plugin',
   opts = {
     keymap = { preset = 'default' },
 
@@ -8,7 +8,18 @@ return {
       nerd_font_variant = 'mono'
     },
 
-    completion = { documentation = { auto_show = false } },
+    completion = { 
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 500,
+        },
+        list = {
+            selection = {
+                preselect = true,
+                auto_insert = true,
+            },
+        },
+    },
 
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
