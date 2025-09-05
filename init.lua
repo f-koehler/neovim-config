@@ -1,4 +1,8 @@
-require("config.global")
-require("config.lazy")
+if vim.g.vscode then
+    require("config.global")
+else
+    require("config.global")
+    require("config.lazy")
 
-require("config.lsp")
+    require("config.lsp")
+end
