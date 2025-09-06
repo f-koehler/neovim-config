@@ -6,6 +6,7 @@ return {
             ansiblels = {},
             lua_ls = {},
             clangd = {},
+            qmlls = {},
         },
     },
     config = function(_, opts)
