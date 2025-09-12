@@ -35,7 +35,12 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet ~/.config/nvim/lazy-lock.json || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet lazy-lock.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: List files for debugging
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          ls -l
 
       - name: Create PR if changes
         if: steps.changes.outputs.changed == 'true'
@@ -45,7 +50,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b update/lazy-lock
-          git add .config/nvim/lazy-lock.json
+          [ -f lazy-lock.json ] && git add lazy-lock.json
           git commit -m "chore: update lazy-lock.json"
           git push origin update/lazy-lock
           gh pr create --title "chore: update lazy-lock.json" \
