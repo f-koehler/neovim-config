@@ -56,4 +56,6 @@ jobs:
           gh pr create --title "chore: update lazy-lock.json" \
                        --body "Automated update of lazy-lock.json" \
                        --base main \
-                       --head update/lazy-lock
+                       --head update/lazy-lock \
+                       --assignee f-koehler \
+                       --reviewer f-koehler
