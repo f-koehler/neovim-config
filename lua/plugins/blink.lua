@@ -1,6 +1,6 @@
 return {
     "saghen/blink.cmp",
-    build = "nix run .#build-plugin",
+    build = "cargo build --release",
     opts = {
         keymap = { preset = "default" },
 
