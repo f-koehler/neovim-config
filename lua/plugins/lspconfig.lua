@@ -6,5 +6,6 @@ return {
         vim.lsp.config("lua_ls", {})
         vim.lsp.config("clangd", {})
         vim.lsp.config("qmlls", {})
+        vim.lsp.config("ruff", {})
     end,
 }
