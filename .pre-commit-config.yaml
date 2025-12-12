@@ -1,15 +1,1 @@
----
-repos:
-  - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v2.1.0
-    hooks:
-      - id: stylua
-  - repo: local
-    hooks:
-      - id: selene
-        name: Selene (Lua lint)
-        entry: selene
-        language: system
-        types: [lua]
-
-
+/nix/store/mdb8byxypfzrwbn364cw5jmmawkqh2im-pre-commit-config.json
