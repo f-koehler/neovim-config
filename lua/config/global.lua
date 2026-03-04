@@ -22,6 +22,7 @@ vim.opt.smartcase = true -- override ignorecase if search contains uppercase
 
 -- display settings
 vim.opt.number = true -- show line numbers
+vim.opt.relativenumber = true -- show relative line numbers
 vim.opt.cursorline = true -- highlight current line
 vim.opt.scrolloff = 8 -- keep 8 lines above and below the cursor
 vim.opt.sidescrolloff = 8 -- keep 8 columns left and right of the cursor
