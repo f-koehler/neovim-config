@@ -1,6 +1,7 @@
 local servers = {
     ansiblels = {},
     clangd = {},
+    harper_ls = {},
     lua_ls = {},
     qmlls = {},
     ruff = {},
