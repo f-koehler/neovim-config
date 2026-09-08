@@ -26,15 +26,16 @@ A modern Neovim configuration built with the [lazy.nvim](https://github.com/folk
 
 - Neovim >= 0.11.0
 - Git
-- Node.js (for several language servers and Copilot)
+- Node.js (for Copilot and several Mason-installed tools)
 - Ripgrep (`rg`) — Telescope live grep
 - fd — Telescope file finding
 - A Rust toolchain (`cargo`) — needed to build blink.cmp
+- `unzip` and `curl` — used by Mason to install language servers/formatters
 
 ### Optional
 
 - A Nerd Font (this config is developed with `CaskaydiaCove Nerd Font`)
-- Language servers and formatters for the languages you work in
+- Python 3 (with `pip`) — only needed if a Mason package you use installs via pip
 
 ## Installation
 
@@ -87,6 +88,7 @@ nvim/
 │       ├── lazydev.lua
 │       ├── lspconfig.lua
 │       ├── lualine.lua
+│       ├── mason.lua
 │       ├── overseer.lua
 │       ├── telescope.lua
 │       ├── telescope-file-browser.lua
@@ -113,9 +115,11 @@ nvim/
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
 - [copilot.vim](https://github.com/github/copilot.vim)
 - [lazydev.nvim](https://github.com/folke/lazydev.nvim)
+- [mason.nvim](https://github.com/mason-org/mason.nvim) + [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim) — installs and enables configured LSP servers
 
 ### Editing and quality
 - [conform.nvim](https://github.com/stevearc/conform.nvim) — formatting with format-on-save
+- [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim) — installs the formatters conform.nvim uses
 - [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)
 
 ### Navigation
@@ -157,14 +161,15 @@ Press `<leader>` and wait for which-key to surface the rest.
 
 ## Language support
 
+External tools (LSP servers, formatters) are managed by [mason.nvim](https://github.com/mason-org/mason.nvim) instead of your system package manager. `mason-lspconfig.nvim` installs the LSP servers listed below and enables them via `vim.lsp.enable`; `mason-tool-installer.nvim` installs the formatters used by conform.nvim. Both run automatically on startup (`ensure_installed`), so a fresh checkout installs everything it needs the first time you launch Neovim — no manual install step. Use `:Mason` to inspect/update tools by hand.
+
 ### LSP servers configured (`lua/plugins/lspconfig.lua`)
 - `ansiblels`
 - `lua_ls`
 - `clangd`
 - `qmlls`
 - `ruff`
-
-The servers themselves are not installed by this config — install them via your system package manager and make sure they are on `PATH`.
+- `rust_analyzer`
 
 ### Formatters configured (`lua/plugins/conform.lua`)
 - Lua — `stylua`
@@ -178,11 +183,16 @@ Format-on-save is enabled with a 500ms timeout and falls back to LSP formatting.
 
 ### Adding a language server
 
-Add a `vim.lsp.config` entry in `lua/plugins/lspconfig.lua`, for example:
+Add it to the `servers` table in `lua/plugins/lspconfig.lua`, for example:
 
 ```lua
-vim.lsp.config("pyright", {})
+local servers = {
+    pyright = {},
+    -- ...
+}
 ```
+
+It's picked up automatically by both `vim.lsp.config`/`vim.lsp.enable` and Mason's `ensure_installed` list. If the server isn't in the [Mason registry](https://mason-registry.dev/registry/list), install it manually and make sure it's on `PATH`.
 
 ## Editor options
 
@@ -204,13 +214,15 @@ Set in `lua/config/global.lua`:
 ## Updating
 
 - Plugins: `:Lazy update` (the auto-updater is disabled — updates run via CI)
-- Health checks: `:checkhealth`, `:Lazy health`, `:LspInfo`
+- Mason-managed tools: `:Mason` (interactive UI) or `:MasonToolsUpdate`
+- Health checks: `:checkhealth`, `:Lazy health`, `:LspInfo`, `:checkhealth mason`
 
 ## Troubleshooting
 
 - Missing icons → install a Nerd Font and configure your terminal
 - Telescope errors → confirm `rg` and `fd` are on `PATH`
-- LSP not attaching → check `:LspInfo` and that the relevant server is installed
+- LSP not attaching → check `:LspInfo` and `:Mason` to confirm the server installed successfully
+- A Mason install fails → `:checkhealth mason` to check for missing prerequisites (e.g. `npm`, `python3`, `cargo`)
 - Plugin failures → `:Lazy` to inspect, `:Lazy sync` to reconcile
 
 ## License
