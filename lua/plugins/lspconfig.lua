@@ -1,10 +1,11 @@
 local servers = {
     ansiblels = {},
+    basedpyright = {},
     clangd = {},
+    gh_actions_ls = {},
     harper_ls = {},
     lua_ls = {},
     qmlls = {},
-    ruff = {},
     rust_analyzer = {},
     texlab = {},
 }
