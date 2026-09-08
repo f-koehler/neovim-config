@@ -6,6 +6,7 @@ local servers = {
     qmlls = {},
     ruff = {},
     rust_analyzer = {},
+    texlab = {},
 }
 
 local mason_exclude = {
