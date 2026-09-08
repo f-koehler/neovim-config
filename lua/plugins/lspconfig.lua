@@ -1,13 +1,25 @@
 local servers = {
     ansiblels = {},
     basedpyright = {},
+    bashls = {},
     clangd = {},
+    docker_compose_language_service = {},
+    docker_language_server = {},
     gh_actions_ls = {},
     harper_ls = {},
     lua_ls = {},
+    neocmake = {},
+    nil_ls = {},
     qmlls = {},
+    ruff = {},
     rust_analyzer = {},
+    statix = {},
+    taplo = {},
+    tofu_ls = {},
+    terraformls = {},
     texlab = {},
+    yamlls = {},
+    zizmor = {},
 }
 
 local mason_exclude = {
