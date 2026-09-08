@@ -7,6 +7,7 @@ local formatters_by_ft = {
     lua = { "stylua" },
     python = { "ruff" },
     scss = { "prettier" },
+    tex = { "tex-fmt" },
     toml = { "taplo" },
     typescript = { "prettier" },
     yaml = { "prettier" },
