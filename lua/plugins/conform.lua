@@ -52,6 +52,16 @@ return {
             opts = { ensure_installed = vim.tbl_keys(tools) },
         },
     },
+    keys = {
+        {
+            "<C-S-i>",
+            function()
+                require("conform").format({ async = true, lsp_fallback = true })
+            end,
+            mode = "",
+            desc = "Format buffer",
+        },
+    },
     config = function()
         require("conform").setup({
             formatters_by_ft = formatters_by_ft,
