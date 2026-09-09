@@ -30,7 +30,7 @@ return {
         name = "cmake build",
         builder = function()
           return {
-            cmd = "cmake --build build --parallel $(nproc --all)",
+            cmd = "nice -n 19 cmake --build build --parallel $(nproc --all)",
             cwd = root,
             components = { "default" },
           }
