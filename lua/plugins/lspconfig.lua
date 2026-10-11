@@ -6,6 +6,7 @@ local servers = {
     docker_compose_language_service = {},
     docker_language_server = {},
     gh_actions_ls = {},
+    gopls = {},
     harper_ls = {},
     lua_ls = {},
     neocmake = {},

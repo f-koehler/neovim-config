@@ -3,6 +3,7 @@ local formatters_by_ft = {
     cmake = { "cmake_format" },
     cpp = { "clang-format" },
     css = { "prettier" },
+    go = { "gofmt" },
     html = { "prettier" },
     javascript = { "prettier" },
     json = { "prettier" },
