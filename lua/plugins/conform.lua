@@ -13,6 +13,7 @@ local formatters_by_ft = {
     rust = { "rustfmt" },
     scss = { "prettier" },
     sh = { "shfmt" },
+    snakemake = { "snakefmt" },
     terraform = { "terraform_fmt" },
     tex = { "tex-fmt" },
     tfvars = { "terraform_fmt" },
