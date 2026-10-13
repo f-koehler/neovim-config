@@ -1,3 +1,5 @@
+local is_nixos = require("config.platform").is_nixos
+
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -14,8 +16,10 @@ return {
             "jay-babu/mason-nvim-dap.nvim",
             dependencies = { "mason-org/mason.nvim" },
             opts = {
-                ensure_installed = { "debugpy", "codelldb" },
-                automatic_installation = true,
+                -- mason's codelldb is a prebuilt binary, which doesn't run on NixOS,
+                -- so it comes from nixpkgs there instead and is configured below
+                ensure_installed = is_nixos and { "debugpy" } or { "debugpy", "codelldb" },
+                automatic_installation = is_nixos and { exclude = { "codelldb" } } or true,
                 handlers = {},
             },
         },
@@ -102,6 +106,26 @@ return {
     },
     config = function()
         local dap, dapui = require("dap"), require("dapui")
+
+        if is_nixos then
+            dap.adapters.codelldb = { type = "executable", command = "codelldb" }
+
+            local codelldb = {
+                {
+                    name = "LLDB: Launch",
+                    type = "codelldb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                },
+            }
+            dap.configurations.c = codelldb
+            dap.configurations.cpp = codelldb
+            dap.configurations.rust = codelldb
+        end
 
         dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open()
