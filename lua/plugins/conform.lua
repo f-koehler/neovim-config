@@ -30,31 +30,23 @@ local mason_exclude = {
     qmlformat = true,
 }
 
--- mason fetches prebuilt binaries for these, which don't run on NixOS,
--- so they come from nixpkgs there instead (see nixos-tools.nix)
-local nixpkgs_on_nixos = {
-    ["clang-format"] = true, -- the pypi package is a prebuilt binary
-    nixfmt = true,
-    ruff = true,
-    shfmt = true,
-    stylua = true,
-    taplo = true,
-    terraform_fmt = true,
-    ["tex-fmt"] = true,
+-- conform's formatter id doesn't always match the executable or the mason package name
+local executable_by_formatter = {
+    cmake_format = "cmake-format",
+    terraform_fmt = "terraform",
 }
-
-local is_nixos = require("config.platform").is_nixos
-
--- conform's formatter id doesn't always match the mason package name
 local mason_package_by_formatter = {
     cmake_format = "cmakelang",
     terraform_fmt = "terraform",
 }
 
+-- Mason only installs formatters that aren't already on PATH
+-- (e.g. provided by Nix, see home/editor-tools.nix)
 local tools = {}
 for _, formatters in pairs(formatters_by_ft) do
     for _, formatter in ipairs(formatters) do
-        if not mason_exclude[formatter] and not (is_nixos and nixpkgs_on_nixos[formatter]) then
+        local exe = executable_by_formatter[formatter] or formatter
+        if not mason_exclude[formatter] and vim.fn.executable(exe) == 0 then
             tools[mason_package_by_formatter[formatter] or formatter] = true
         end
     end

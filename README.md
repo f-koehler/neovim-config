@@ -182,7 +182,7 @@ Press `<leader>` and wait for which-key to surface the rest.
 
 ## Language support
 
-External tools (LSP servers, formatters) are managed by [mason.nvim](https://github.com/mason-org/mason.nvim) instead of your system package manager. `mason-lspconfig.nvim` installs the LSP servers listed below and enables them via `vim.lsp.enable`; `mason-tool-installer.nvim` installs the formatters used by conform.nvim. Both run automatically on startup (`ensure_installed`), so a fresh checkout installs everything it needs the first time you launch Neovim — no manual install step. Use `:Mason` to inspect/update tools by hand.
+External tools (LSP servers, formatters) already on `PATH` (e.g. provided by Nix) are used as they are. [mason.nvim](https://github.com/mason-org/mason.nvim) only installs the ones that are missing, and its bin directory is appended to `PATH`, so system tools take precedence. `mason-lspconfig.nvim` installs the LSP servers listed below and enables them via `vim.lsp.enable`; `mason-tool-installer.nvim` installs the formatters used by conform.nvim. Both run automatically on startup (`ensure_installed`), so a fresh checkout installs everything it needs the first time you launch Neovim — no manual install step. Use `:Mason` to inspect/update tools by hand.
 
 ### LSP servers configured (`lua/plugins/lspconfig.lua`)
 - `ansiblels`
@@ -213,13 +213,13 @@ local servers = {
 }
 ```
 
-It's picked up automatically by both `vim.lsp.config`/`vim.lsp.enable` and Mason's `ensure_installed` list. If the server isn't in the [Mason registry](https://mason-registry.dev/registry/list), install it manually and make sure it's on `PATH`.
+Also add its executable name to the `executables` table, so Mason skips it when it's already on `PATH`. It's picked up automatically by both `vim.lsp.config`/`vim.lsp.enable` and Mason's `ensure_installed` list. If the server isn't in the [Mason registry](https://mason-registry.dev/registry/list), install it manually and make sure it's on `PATH`.
 
 ### Debug adapters configured (`lua/plugins/dap.lua`)
 - `debugpy` — Python
 - `codelldb` — C, C++, Rust (also covers Swift and Zig)
 
-`mason-nvim-dap.nvim` installs these via Mason (`ensure_installed`) and registers their `nvim-dap` adapter and default launch configuration automatically — no manual `dap.adapters`/`dap.configurations` setup needed. Start a debug session with `<leader>dc` (it prompts for a configuration, e.g. "Launch file" for Python or "LLDB: Launch" for codelldb, which asks for the executable to run).
+`mason-nvim-dap.nvim` installs these via Mason (`ensure_installed`; `codelldb` is skipped and configured by hand if it's already on `PATH`) and registers their `nvim-dap` adapter and default launch configuration automatically — no manual `dap.adapters`/`dap.configurations` setup needed. Start a debug session with `<leader>dc` (it prompts for a configuration, e.g. "Launch file" for Python or "LLDB: Launch" for codelldb, which asks for the executable to run).
 
 ### Adding a debug adapter
 

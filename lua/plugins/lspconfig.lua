@@ -23,36 +23,36 @@ local servers = {
     zizmor = {},
 }
 
-local mason_exclude = {
-    -- a, b
+-- executable of each server; Mason only installs servers that aren't already
+-- on PATH (e.g. provided by Nix, see home/editor-tools.nix)
+local executables = {
+    ansiblels = "ansible-language-server",
+    basedpyright = "basedpyright-langserver",
+    bashls = "bash-language-server",
+    clangd = "clangd",
+    docker_compose_language_service = "docker-compose-langserver",
+    docker_language_server = "docker-language-server",
+    gh_actions_ls = "gh-actions-language-server",
+    gopls = "gopls",
+    harper_ls = "harper-ls",
+    lua_ls = "lua-language-server",
+    neocmake = "neocmakelsp",
+    nil_ls = "nil",
+    qmlls = "qmlls",
+    ruff = "ruff",
+    rust_analyzer = "rust-analyzer",
+    statix = "statix",
+    taplo = "taplo",
+    tofu_ls = "tofu-ls",
+    terraformls = "terraform-ls",
+    texlab = "texlab",
+    yamlls = "yaml-language-server",
+    zizmor = "zizmor",
 }
-
--- mason fetches prebuilt binaries for these, which don't run on NixOS,
--- so they come from nixpkgs there instead (see nixos-tools.nix)
-local nixpkgs_on_nixos = {
-    basedpyright = true, -- the pypi package bundles a prebuilt node
-    clangd = true,
-    docker_language_server = true,
-    harper_ls = true,
-    lua_ls = true,
-    neocmake = true,
-    qmlls = true,
-    ruff = true,
-    rust_analyzer = true,
-    -- not a binary, but mason's cargo build fails without --locked
-    statix = true,
-    taplo = true,
-    terraformls = true,
-    tofu_ls = true,
-    texlab = true,
-    zizmor = true, -- the pypi package is a prebuilt binary
-}
-
-local is_nixos = require("config.platform").is_nixos
 
 local mason_ensure_installed = {}
 for server in pairs(servers) do
-    if not mason_exclude[server] and not (is_nixos and nixpkgs_on_nixos[server]) then
+    if vim.fn.executable(executables[server]) == 0 then
         table.insert(mason_ensure_installed, server)
     end
 end
